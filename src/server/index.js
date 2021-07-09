@@ -1,15 +1,24 @@
 
-var serialize = require('serialize-javascript');
+// var serialize = require('serialize-javascript');
+import serialize from 'serialize-javascript';
 
-const DUN = require("./state/Dungeon")
-const CONDUN = require("./controllers/ConDungeon")
+import {world} from "./state/ecs.js"
 
-const express = require('express');
-const http = require('http');
+// const DUN = require("./state/Dungeon")
+import * as DUN from './state/Dungeon.js';
+// const CONDUN = require("./controllers/ConDungeon")
+// const { _world } = require("./state/ecs")
+import * as CONDUN from "./controllers/ConDungeon.js"
+
+// const express = require('express');
+// const http = require('http');
+import * as express from "express";
+import * as http from "http"
 const port = 4444;
 const server = http.createServer(express)
-const websocket = require('ws');
-const wss = new websocket.Server({server})
+// const websocket = require('ws.cjs');
+import _ from "ws"
+const wss = new _.Server({server})
 
 function deserialize(serializedJavascript){
     return JSON.parse(serializedJavascript)
@@ -35,7 +44,11 @@ server.listen(port, function() {
     console.log(`server is listening on port: ${port}`)
 })
 
-console.log(DUN.map._map[0][1])
-console.log(serialize(DUN.map._map))
+
+const warrior1 = world.createPrefab('Being');
+console.log({warrior1})
+
+// console.log(DUN.map["town"])
+// console.log(serialize(DUN.map["town"]))
 
 

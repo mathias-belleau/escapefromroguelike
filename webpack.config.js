@@ -6,4 +6,15 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist/client'),
   },
+  module:{
+    rules:[
+      {        
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: 'url-loader',
+        },
+      }
+    ]
+  }
+  
 };

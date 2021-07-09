@@ -44,5 +44,10 @@ import * as SERIALIZE from "serialize-javascript"
 
     init();
 })();
-
-display.draw(5,  4, "@");
+console.log({display})
+for(var x = 2; x < 13; x++){
+    for(var y = 2; y < 13; y++){
+        display.draw(y,  x, "lit_corridor");
+    }
+}
+display.draw(5,  4, [display._data["5,4"][2], "rat"]);
