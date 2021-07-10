@@ -1,10 +1,10 @@
-const path = require('path');
-
-module.exports = {
+// const path = require('path');
+import * as path from 'path';
+export default {
   entry: './src/client/client.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist/client'),
+    path: path.resolve("./", 'dist/client'),
   },
   module:{
     rules:[

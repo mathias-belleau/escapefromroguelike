@@ -1,6 +1,6 @@
 import * as ROT from "rot-js";
 const canvas = document.querySelector("#game");
-import * as TILES from "./tiles";
+import * as TILES from "./tiles.js";
 
 console.log(TILES.tilemap["geryon"])
 const displayOptions = {

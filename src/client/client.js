@@ -1,6 +1,8 @@
 import {display} from "./lib/canvas.js"
 import * as ROT from "rot-js";
-import * as SERIALIZE from "serialize-javascript"
+import serialize from "serialize-javascript"
+import * as CONDUN from "./controllers/ConDungeon.js"
+import * as REND from "./controllers/Render.js"
 
 (function() {
     const sendBtn = document.querySelector('#send');
@@ -24,9 +26,12 @@ import * as SERIALIZE from "serialize-javascript"
         ws.onopen = () => {
             console.log("connection opened")
             let testing = {test:"bipbop"}
-            ws.send(SERIALIZE(testing))
+            ws.send(serialize(testing))
         }
-        ws.onmessage = ({data}) => ShowMessage(data);
+        ws.onmessage = (data) => {
+            ShowMessage(data);
+            HandleMessage(data)
+        }
         ws.onclose = function(){
             ws = null;
         }
@@ -38,12 +43,31 @@ import * as SERIALIZE from "serialize-javascript"
             return;
         }
 
-        ws.send(messageBox.value);
+        ws.send(serialize({"message":messageBox.value}));
         ShowMessage(messageBox.value);
     }
 
     init();
 })();
+
+const HandleMessage = function(data){
+    console.log(data.data)
+    let dataObj = JSON.parse(data.data);
+    
+    let msgType = Object.keys(dataObj)[0]
+    console.log(msgType == "map")
+    switch(msgType){
+        case "map":
+            CONDUN.ReceiveMap(dataObj[msgType])
+            REND.RenderMap()
+            break;
+        default:
+            console.error("unrecognized data received")
+            console.log({dataObj})
+            break;
+    }
+}
+
 console.log({display})
 for(var x = 2; x < 13; x++){
     for(var y = 2; y < 13; y++){

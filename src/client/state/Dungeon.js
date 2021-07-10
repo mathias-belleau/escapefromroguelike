@@ -7,5 +7,7 @@ let dimensions = {
 
 let map = []
 
-exports.dimensions = dimensions;
-exports.map = map;
+export {
+    dimensions,
+    map
+}
